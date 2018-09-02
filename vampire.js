@@ -76,7 +76,6 @@ class Vampire {
 let astrid = new Vampire('Astrid', 1900);
 let elena = new Vampire('Elena', 1910);
 let sekhmet = new Vampire('Sekhmet', 1920);
-let zurie = new Vampire('Zurie', 1930);
 
 astrid.addOffspring(elena);
 elena.addOffspring(sekhmet);
@@ -84,7 +83,7 @@ elena.addOffspring(sekhmet);
 console.log('Astrid: ', astrid);
 console.log('Number of offspring: ', astrid.numberOfOffspring)
 console.log('Number of vampire ancestors: ', elena.numberOfVampiresFromOriginal)
-elena.isMoreSeniorThan(sekhmet); 
+console.log('Elena is more senior than Sekhmet: ', elena.isMoreSeniorThan(sekhmet));
 
 module.exports = Vampire;
 
