@@ -56,25 +56,46 @@ class Vampire {
     if (thisVampireRank < otherVampireRank) {
       return true;
     } else {
-      return false;
     }
+      return false;
   }
 
   /** Tree traversal methods **/
 
   // Returns the vampire object with that name, or null if no vampire exists with that name
   vampireWithName(name) {
-    
+    if (this.name === name) {
+      return this;
+    }
+
+    for (let child of this.offspring) {
+      if (child.vampireWithName(name)) {
+        return child.vampireWithName(name);
+      }
+    }
+    return null
   }
 
   // Returns the total number of vampires that exist
   get totalDescendents() {
-    
+    let totalDescendents = 0;
+
+    for (let child of this.offspring) {
+      totalDescendents += child.totalDescendents + 1;
+    }
+    return totalDescendents;
   }
 
   // Returns an array of all the vampires that were converted after 1980
   get allMillennialVampires() {
-    
+    let millennialVampires = [];
+    if (this.yearConverted > 1980) {
+      millennialVampires.push(this);
+    }
+    for (let child of this.offspring) {
+      millennialVampires = millennialVampires.concat(child.allMillennialVampires);
+    }
+    return millennialVampires;
   }
 
   /** Stretch **/
@@ -90,20 +111,28 @@ class Vampire {
 }
 
 // CREATE VAMPIRE INSTANCES
-let astrid = new Vampire('Astrid', 1900);
-let elena = new Vampire('Elena', 1910);
-let sekhmet = new Vampire('Sekhmet', 1920);
-let zurie = new Vampire('Zurie', 1930);
+// let astrid = new Vampire('Astrid', 1900);
+// let elena = new Vampire('Elena', 1910);
+// let sekhmet = new Vampire('Sekhmet', 1920);
+// let zurie = new Vampire('Zurie', 1930);
 
-astrid.addOffspring(elena);
-elena.addOffspring(sekhmet);
+// DRIVER CODE
+// astrid.addOffspring(elena);
+// elena.addOffspring(sekhmet);
+// sekhmet.addOffspring(zurie);
 
-console.log('Astrid: ', astrid);
-console.log('Number of offspring: ', astrid.numberOfOffspring)
-console.log('Number of vampire ancestors: ', elena.numberOfVampiresFromOriginal)
-elena.isMoreSeniorThan(sekhmet); 
 
-module.exports = Vampire;
+/*  PART ONE  */
+// console.log('Astrid: ', astrid);
+// console.log('Number of offspring: ', astrid.numberOfOffspring)
+// console.log('Number of vampire ancestors: ', elena.numberOfVampiresFromOriginal)
+// elena.isMoreSeniorThan(sekhmet); 
+
+/*  PART TWO  */
+// astrid.vampireWithName('Sekhmet');
+// console.log(astrid.totalDescendents);
+// console.log(astrid.allMillennialVampires);
+// module.exports = Vampire;
 
 
 
